@@ -24,7 +24,7 @@ export const navLinks = [
   },
   {
     label: "IT Solutions",
-    href: "#",
+    href: "it-solutions",
     wideDropdown: true,
     columns: [
       {
