@@ -4,10 +4,15 @@ import { getPublicAbsoluteURL } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { portfolioItems } from "@/_constant/testimonial";
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 // ----------------------------
 // Keep your original PortfolioItem styling
 // ----------------------------
@@ -117,7 +122,7 @@ const PortfolioGrid = () => {
   };
 
   return (
-    <section className="pb-40 portfolio-grid portfolio-grid-carousel">
+    <section className="portfolio-grid">
       <div className="container">
         {/* Heading - Keep your original styling */}
         <div className="mb-10 row">
@@ -132,68 +137,23 @@ const PortfolioGrid = () => {
               <h3 className="mb-0 heading__title">Latest Case Studies</h3>
             </div>
           </div>
-
-          {/* Slide Indicators */}
-          <div className="flex items-center justify-end col-sm-12 col-md-12 col-lg-6">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center text-sm text-gray-500">
-                <ChevronLeft
-                  className="w-10 h-10 text-ring hover:text-green-700"
-                  aria-disabled={currentSlide == 0}
-                  onClick={() => setCurrentSlide(currentSlide - 1)}
-                />
-                <div className="flex gap-2">
-                  {Array.from({ length: totalSlides }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentSlide(index);
-                        startAutoSlide();
-                      }}
-                      className={`w-2 h-2 rounded-full transition-all duration-1000 ${
-                        index === currentSlide
-                          ? "bg-primary w-6"
-                          : "bg-gray-300 hover:bg-gray-400"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-                <ChevronRight
-                  className="w-10 h-10 text-ring hover:text-green-700"
-                  aria-disabled={currentSlide == 0}
-                  onClick={() => setCurrentSlide(currentSlide + 1)}
-                />
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative overflow-hidden">
-          {/* Portfolio Items Carousel */}
+        <div className="relative w-full">
           <div className="relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 1 }}
-              >
+            <Carousel>
+              <CarouselContent className="ml-1">
                 {getCurrentSlideItems().map((item, idx) => (
-                  <motion.div
-                    key={`${currentSlide}-${idx}`}
-                    className="group"
-                    whileHover={{ y: -5 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                  <CarouselItem className="md:basis-1/2 lg:basis-1/3">
                     <PortfolioItem {...item} />
-                  </motion.div>
+                  </CarouselItem>
                 ))}
-              </motion.div>
-            </AnimatePresence>
+              </CarouselContent>
+              <div className="absolute z-50 -bottom-9 right-20 ">
+                <CarouselNext className="text-black " />
+                <CarouselPrevious className="text-black " />
+              </div>
+            </Carousel>
           </div>
         </div>
       </div>

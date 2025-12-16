@@ -1,6 +1,12 @@
-import React from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import { timelineData } from "../_constant/timeline";
-import Image from "next/image";
 import CustomImage from "@/components/custom/CustomImage";
 
 const TimelineCarousel = () => {
@@ -29,7 +35,7 @@ const TimelineCarousel = () => {
                           is secure and monitored safely access to over 99 IT
                           professionals working to help you
                         </p>
-                        <h4 className="timeline__year mb-0">2005</h4>
+                        <h4 className="mb-0 timeline__year">2005</h4>
                       </div>
                     </div>
                   </div>
@@ -47,7 +53,7 @@ const TimelineCarousel = () => {
                           technology, strategizing on IT, providing a security
                           assessment, or managing IT infrastructure.
                         </p>
-                        <h4 className="timeline__year mb-0">2010</h4>
+                        <h4 className="mb-0 timeline__year">2010</h4>
                       </div>
                     </div>
                   </div>

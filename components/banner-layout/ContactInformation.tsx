@@ -2,6 +2,13 @@ import { getPublicAbsoluteURL } from "@/lib/utils";
 import Image from "next/image";
 import ContactUsForm from "./ContactUsForm";
 import { clientImages, testimonials } from "@/_constant/testimonial";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const ContactInformation = () => {
   return (
@@ -17,7 +24,36 @@ const ContactInformation = () => {
                 Satisfied Users Over The Globe
               </h3>
             </div>
-            <div className="testimonials testimonials-wrapper">
+
+            <Carousel>
+              <CarouselContent>
+                {testimonials.map((t, idx) => (
+                  <CarouselItem>
+                    <div key={idx} className="testimonial-item">
+                      <p className="testimonial__desc color-white">{t.desc}</p>
+                      <div className="testimonial__meta">
+                        <h4 className="testimonial__meta-title">{t.name}</h4>
+                        <p className="testimonial__meta-desc">{t.title}</p>
+                        <div className="relative w-20 h-10 ml-2 ">
+                          <Image
+                            src={getPublicAbsoluteURL(t.thumb)}
+                            alt={t.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="absolute z-50 -bottom-9 right-20 ">
+                <CarouselNext className="text-black " />
+                <CarouselPrevious className="text-black " />
+              </div>
+            </Carousel>
+
+            {/* <div className="testimonials testimonials-wrapper">
               <div className="slider-with-navs">
                 {testimonials.map((t, idx) => (
                   <div key={idx} className="testimonial-item">
@@ -25,7 +61,7 @@ const ContactInformation = () => {
                     <div className="testimonial__meta">
                       <h4 className="testimonial__meta-title">{t.name}</h4>
                       <p className="testimonial__meta-desc">{t.title}</p>
-                      <div className="ml-2 w-20 h-10 relative ">
+                      <div className="relative w-20 h-10 ml-2 ">
                         <Image
                           src={getPublicAbsoluteURL(t.thumb)}
                           alt={t.name}
@@ -89,7 +125,7 @@ const ContactInformation = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="divider divider-light w-100 mt-60 mb-60"></div>
 
             <div className="heading heading-light">
@@ -98,7 +134,7 @@ const ContactInformation = () => {
 
             <div className="clients">
               <div
-                className="slick-carousel flex flex-row gap-4"
+                className="flex flex-row gap-4 slick-carousel"
                 data-slick='{"slidesToShow": 4, "arrows": false, "dots": false, "autoplay": true,"autoplaySpeed": 2000, "infinite": true, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 3}}, {"breakpoint": 767, "settings": {"slidesToShow": 3}}, {"breakpoint": 480, "settings": {"slidesToShow": 2}}]}'
               >
                 {clientImages.map((src, index) => (
